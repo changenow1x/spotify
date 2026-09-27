@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PodcastAutomation</title>
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">◉</span>
+    <div>
+      <h1>PodcastAutomation</h1>
+      <p class="sub" id="root-line">Drop files into a show's incoming folder &mdash; everything else happens here.</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <div class="status-pill" id="spotify-pill" title="Spotify connection">
+      <span class="dot"></span><span id="spotify-label">checking&hellip;</span>
+    </div>
+    <button class="btn" id="btn-connect">Connect Spotify</button>
+    <button class="btn btn-ghost" id="btn-disconnect" title="Delete the saved Spotify session">Disconnect</button>
+    <button class="btn btn-ghost" id="btn-pause">Pause queue</button>
+  </div>
+</header>
+
+<main>
+  <section class="cards" id="summary-cards"></section>
+
+  <section class="panel" id="shows-panel">
+    <h2>Your shows</h2>
+    <p class="hint">Put your video or audio file and a text file with the <em>same name</em> into the
+      <strong>incoming</strong> folder. That is the entire workflow.</p>
+    <div class="show-grid" id="show-grid"></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Episodes</h2>
+      <div class="filters">
+        <select id="filter-show"><option value="">All shows</option></select>
+        <select id="filter-state">
+          <option value="">All states</option>
+          <option value="QUEUED,RETRY_WAIT,UPLOADING,PROCESSING,PUBLISHING,AUTHENTICATING">In progress</option>
+          <option value="PUBLISHED,SCHEDULED,ARCHIVED">Published</option>
+          <option value="FAILED,NEEDS_USER_ACTION,NEEDS_RECONCILIATION">Needs attention</option>
+          <option value="ARCHIVED">Archived</option>
+        </select>
+        <button class="btn btn-ghost" id="btn-refresh">Refresh</button>
+      </div>
+    </div>
+    <div id="job-list" class="job-list"><p class="empty">Loading&hellip;</p></div>
+  </section>
+
+  <section class="panel two-col">
+    <div>
+      <h2>Activity</h2>
+      <div id="activity" class="activity"></div>
+    </div>
+    <div>
+      <h2>Log</h2>
+      <pre id="log" class="log"></pre>
+    </div>
+  </section>
+</main>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-card">
+    <h3 id="modal-title">Details</h3>
+    <div id="modal-body"></div>
+    <div class="modal-actions"><button class="btn" id="modal-close">Close</button></div>
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

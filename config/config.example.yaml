@@ -1,0 +1,123 @@
+# ============================================================================
+#  PodcastAutomation - configuration
+#
+#  Copy this to config\config.yaml and edit it.  On Windows, SETUP.bat does
+#  that for you.
+#
+#  Every value below is the default.  You only need to change the shows.
+# ============================================================================
+
+# Where all the folders live.  "" means "next to this config file", which is
+# what you want on Windows: the whole installation stays in one folder that
+# you can back up or move.
+#   root: "D:\\PodcastAutomation"
+root: ""
+
+# How an episode is recognised as "the same episode I already handled".
+#   quick - hash the first and last part of the file (fast, the default)
+#   full  - hash the entire file (slower, only if you edit files in place)
+hash_mode: quick
+
+# How many episodes may be worked on at the same time.  1 is safest.
+max_concurrent_jobs: 1
+
+# Set to true to hold everything back without stopping the app.  The dashboard
+# has a Pause button that does the same thing.
+pause_queue: false
+
+# ---------------------------------------------------------------------------
+#  Your shows
+# ---------------------------------------------------------------------------
+# One block per podcast.  "name" is what you call it here; "incoming" is the
+# folder you drop files into.
+#
+# After signing in to Spotify, open your show on Spotify for Creators and copy
+# the show id from the address bar (the part after "/pod/dashboard/") into
+# spotify_show_id.  Leave it empty and the app will offer to find it.
+shows:
+  - name: "Antike Spiritualitaet"
+    enabled: true
+    timezone: "Europe/Berlin"
+    spotify_show_id: ""
+    spotify_show_name: ""
+    # defaults apply to every episode of this show unless the .txt overrides
+    defaults:
+      explicit: false
+      publish: "NOW"
+      timezone: "Europe/Berlin"
+      language: "de"
+
+  # A second show.  Disabled shows are left alone.
+  - name: "Another Podcast"
+    enabled: false
+    timezone: "Europe/Berlin"
+    spotify_show_id: ""
+    defaults:
+      explicit: false
+      publish: "NOW"
+      timezone: "Europe/Berlin"
+      language: "en"
+
+# ---------------------------------------------------------------------------
+#  Watching the folders
+# ---------------------------------------------------------------------------
+watcher:
+  # A file must stop changing for this long before it is treated as finished.
+  # Raise it if you copy very large files over a slow network.
+  stable_seconds: 5.0
+  # How often the folders are looked at.  Shorter reacts faster, uses more CPU.
+  poll_interval_seconds: 1.0
+  # How many consecutive checks a file must look unchanged.
+  stable_checks: 2
+
+# ---------------------------------------------------------------------------
+#  Media
+# ---------------------------------------------------------------------------
+media:
+  # false = an episode needs its .txt file.  This is the safe setting: the
+  # .txt is where the title and description come from, and the app will not
+  # invent them.  Set to true only if you really publish without a .txt.
+  allow_media_only: false
+  # true = refuse to publish a file that only triggers a recommendation
+  # warning from Spotify.  Useful while you set your recording format up.
+  block_on_spec_warning: false
+  # Optional. Leave empty to use whatever is on PATH.  Only needed for
+  # containers the built-in reader does not know.
+  ffprobe_path: ""
+  ffmpeg_path: ""
+
+# ---------------------------------------------------------------------------
+#  Spotify
+# ---------------------------------------------------------------------------
+spotify:
+  # false shows a browser window while publishing, which is easier to follow
+  # and to interrupt.  Set to true once you trust the setup.
+  headless: false
+  # chromium (bundled), chrome or msedge - use the browser you are signed in
+  # to Spotify with.  chrome and msedge need to be installed already.
+  browser: "chromium"
+  # How long to wait for Spotify to finish processing an upload.
+  processing_timeout_seconds: 900
+  upload_timeout_seconds: 1800
+
+# ---------------------------------------------------------------------------
+#  Dashboard
+# ---------------------------------------------------------------------------
+api:
+  # 127.0.0.1 means only this computer can open the dashboard.  Do not change
+  # it unless you understand that it exposes your queue to the network.
+  host: "127.0.0.1"
+  port: 8765
+  require_token: true
+
+# ---------------------------------------------------------------------------
+#  Retrying
+# ---------------------------------------------------------------------------
+retry:
+  # How often a failed episode is tried again before it is parked for you.
+  max_attempts: 5
+  # The first wait is this long; it then roughly doubles up to max_delay.
+  base_delay_seconds: 20.0
+  max_delay_seconds: 1800.0
+  # A little randomness so many episodes do not all retry at the same second.
+  jitter: 0.25

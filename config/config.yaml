@@ -1,0 +1,39 @@
+# PodcastAutomation configuration
+root: ""
+hash_mode: quick
+max_concurrent_jobs: 1
+pause_queue: false
+shows:
+  - name: "Antike Spiritualitaet"
+    enabled: true
+    timezone: "Europe/Berlin"
+    spotify_show_id: ""
+    spotify_show_name: ""
+    defaults:
+      explicit: false
+      publish: "NOW"
+      timezone: "Europe/Berlin"
+      language: "de"
+  - name: "Another Podcast"
+    enabled: false
+    timezone: "Europe/Berlin"
+    spotify_show_id: ""
+    defaults:
+      explicit: false
+      publish: "NOW"
+      timezone: "Europe/Berlin"
+watcher:
+  stable_seconds: 5.0
+  poll_interval_seconds: 1.0
+  stable_checks: 2
+media:
+  allow_media_only: false
+  block_on_spec_warning: false
+spotify:
+  headless: false
+api:
+  host: "127.0.0.1"
+  port: 8765
+retry:
+  max_attempts: 5
+  base_delay_seconds: 20.0

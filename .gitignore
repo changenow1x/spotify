@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Runtime data - created by the app next to the installation
+# The database, the saved Spotify session, logs and screenshots are all
+# per-machine and must never be committed.  A saved browser profile in
+# particular is a live credential.
+data/
+logs/
+diagnostics/
+runtime/
+*.db
+*.db-wal
+*.db-shm
+browser-profile/
+Local State
+*.mp4
+*.mp3
+*.m4a
+*.wav
+*.part
+*.crdownload
+
+# A user's shows folder holds their actual episodes - the incoming media, the
+# per-show config `setup` generates, and the archive. It is runtime data that
+# the app recreates, and it can be private, so none of it belongs in git.
+shows/
+
+# Never commit a real metadata file from a real show
+*.txt.bak
+
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
